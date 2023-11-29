@@ -19,32 +19,51 @@
 // Наприклад, ось так:
 
 class Key {
-  private signature: number = Math.random();
+  private signature: number = Math.ceil(Math.random()*100);
 
   getSignature(): number {
     return this.signature;
   }
+
 }
 
 class Person {
-  private key: Key;
-  constructor(key: Key) {
-    this.key = key;
+  constructor(private key: Key) {
+   
   }
   getKey(): Key {
+    console.log(this.key)
     return this.key;
   }
 }
 
 abstract class House {
-  protected door: "true" | "false";
-  protected key: Key;
+  protected tenants: Person[] = [];
+  protected door: boolean = false;
 
-  public comeIn(){
-if(this.door === 'true'){
-    // логіка
-}
+  constructor(protected key: Key) {}
+
+  comeIn(tenant: Person) {
+    console.log('keyHouse',this.key)
+    if (this.door === true) {
+      this.tenants.push(tenant);
+      console.log(`Welcome home, ${person.getKey().getSignature()}!`);
+    } else {
+      console.log("The door is closed.");
+    }
   }
+  abstract openDoor(key: Key): void;
+}
+
+class MyHouse extends House{
+public openDoor(key: Key): void {
+  if(key === this.key){
+    console.log('The door is opening')
+    this.door = true;
+  } else{
+    console.log('The door is close')
+  }
+}
 }
 
 const key = new Key();
