@@ -19,20 +19,17 @@
 // Наприклад, ось так:
 
 class Key {
-  private signature: number = Math.ceil(Math.random()*100);
+  private signature: number = Math.ceil(Math.random() * 100);
 
   getSignature(): number {
     return this.signature;
   }
-
 }
 
 class Person {
-  constructor(private key: Key) {
-   
-  }
+  constructor(private key: Key) {}
   getKey(): Key {
-    console.log(this.key)
+    console.log(this.key);
     return this.key;
   }
 }
@@ -44,7 +41,7 @@ abstract class House {
   constructor(protected key: Key) {}
 
   comeIn(tenant: Person) {
-    console.log('keyHouse',this.key)
+    console.log("keyHouse", this.key);
     if (this.door === true) {
       this.tenants.push(tenant);
       console.log(`Welcome home, ${person.getKey().getSignature()}!`);
@@ -55,15 +52,15 @@ abstract class House {
   abstract openDoor(key: Key): void;
 }
 
-class MyHouse extends House{
-public openDoor(key: Key): void {
-  if(key === this.key){
-    console.log('The door is opening')
-    this.door = true;
-  } else{
-    console.log('The door is close')
+class MyHouse extends House {
+  public openDoor(key: Key): void {
+    if(key.getSignature() === this.key.getSignature()){
+      console.log("The door is opening");
+      this.door = true;
+    } else {
+      console.log("The door is close");
+    }
   }
-}
 }
 
 const key = new Key();
